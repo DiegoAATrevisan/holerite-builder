@@ -1,40 +1,80 @@
+import { HTMLInputTypeAttribute } from "react"
 import { z } from "zod"
 
 type Input = {
   name: string
   placeholder: string
-  type: "text"
+  type: HTMLInputTypeAttribute | undefined
+  label: string
 }
-
 
 export const data: Input[] = [
   {
-    name: "email",
-    placeholder: "digite seu email",
-    type: "text"
+    name: "nomeCompletoFuncionario",
+    placeholder: "Digite seu nome",
+    type: "text",
+    label: "Nome:"
   },
   {
-    name: "telefone",
-    placeholder: "digite seu telefone",
-    type: "text"
+    name: "cpfFuncionario",
+    placeholder: "Digite seu CPF",
+    type: "text",
+    label: "CPF:"
   },
   {
-    name: "nome",
-    placeholder: "digite seu nome",
-    type: "text"
-  }
+    name: "rgFuncionario",
+    placeholder: "Digite seu RG",
+    type: "text",
+    label: "RG:"
+  },
+  {
+    name: "cargoFuncionario",
+    placeholder: "Digite seu cargo",
+    type: "text",
+    label: "Cargo:"
+  },
+  {
+    name: "departamentoFuncionario",
+    placeholder: "Digite seu departamento",
+    type: "text",
+    label: "Departamento:"
+  },
+  {
+    name: "telefoneFuncionario",
+    placeholder: "Digite seu telefone",
+    type: "text",
+    label: "Telefone:"
+  },
+  {
+    name: "emailFuncionario",
+    placeholder: "Digite seu e-mail",
+    type: "text",
+    label: "E-mail:"
+  },
 ]
 
 export const FormSchema = z.object({
-  email: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  emailFuncionario: z.string().min(1, {
+    message: "Este campo deve estar preenchido.",
+  }).email("Este não é um e-mail válido"),
+  nomeCompletoFuncionario: z.string().min(3, {
+    message: "Digite um nome válido.",
   }),
-  nome: z.string().min(2, {
-    message: "Nome must be at least 2 characters.",
+  cpfFuncionario: z.string().min(11, {
+    message: "Digite um CPF válido.",
   }),
-  telefone: z.string({}).refine((arg) => {
+  telefoneFuncionario: z.string({}).refine((arg) => {
     return !Number.isNaN(Number(arg))
   }, {
-    message: "Phone "
-  })
+    message: "Digite um número de telefone válido."
+  }),
+  rgFuncionario: z.string().min(7, {
+    message: "Digite um RG válido.",
+  }),
+  cargoFuncionario: z.string().min(3, {
+    message: "Digite um cargo válido.",
+  }),
+  departamentoFuncionario: z.string().min(3, {
+    message: "Digite um departamento válido.",
+  }),
 })
